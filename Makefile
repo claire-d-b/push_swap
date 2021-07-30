@@ -1,5 +1,5 @@
 SRCS =	./ft_op.c\
-	./push_swap.c\
+	./insertion.c\
 	./ft_algo.c\
 
 RENAME		= mv a.out push_swap

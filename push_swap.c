@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/07/24 09:37:50 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:46:36 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void    print_no_details(t_list *stack_a, t_list *stack_b)
     if (stack_a)
     {
         while (stack_a->prec)
-        stack_a = stack_a->prec;
+            stack_a = stack_a->prec;
         while (stack_a->next)
         {
             printf("stack a v %d\n", stack_a->value);
@@ -216,36 +216,90 @@ void    print_stack_a_a_b(t_list *stack_a, t_list *stack_b)
     }
 }
 
-void    push_swap(t_list **stack_a, t_list **stack_b, int nb)
+int is_max(int lst, int max)
 {
-    (void)stack_a;
-    (void)stack_b;
-    (void)nb;
+    if (lst == max)
+        return (1);
+    return (0);
 }
-/*    while (i < nb / 2)
+
+int find_max(t_list *max)
+{
+    int max_value;
+
+    max_value = max->value;
+    while (max->prec)
+        max = max->prec;
+    while (max->next)
     {
-        printf("i %d\n", i);
-        ft_pb(stack_a, stack_b);
+        if (max_value < max->value)
+            max_value = max->value;
+        max = max->next;
+    }
+    if (max_value < max->value)
+        max_value = max->value;
+    return (max_value);
+}
+
+int ra_o_rra(t_list *s_lst, int max)
+{
+    int i;
+    
+    i = 0;
+    while (s_lst->prec)
+        s_lst = s_lst->prec;
+    while (s_lst->next)
+    {
+        if (s_lst->value == max)
+            return (i);
+        s_lst = s_lst->next;
         i++;
     }
-    print_no_details(*stack_a, *stack_b);
-    printf("\n");
-    while (i)
+    return (i);
+}
+
+void    push_swap(t_list **stack_a, t_list **stack_b, int nb)
+{
+    int x;
+    int max;
+    int j;
+
+    x = 0;
+    j = nb;
+    max = find_max(*stack_a);
+    while (j >= 0)
     {
-        printf("i %d\n", i);
+        go_to_last_el(stack_a);
+        if (is_max((*stack_a)->value, max) == 0)
+            ft_sa_or_sb(*stack_a);
+        go_to_last_el(stack_a);
+        if ((is_max((*stack_a)->value, max)) || (x == j - 1))
+        {
+            ft_pb(stack_a, stack_b);
+            max = find_max(*stack_a);
+            go_to_last_el(stack_a);
+            if (is_max((*stack_a)->value, max) == 0)
+                ft_sa_or_sb(*stack_a);
+            j -= 1;
+            x = 0;
+        }
+        go_to_last_el(stack_a);
+        if (is_max((*stack_a)->value, max) == 0 && x < j - 1)
+        {
+            if (ra_o_rra(*stack_a, max) > j / 2)
+                ft_rra_or_rrb(*stack_a);
+            else
+                ft_ra_or_rb(*stack_a);
+        }
+        x++;
+    }
+    while (j < nb)
+    {
         ft_pa(stack_a, stack_b);
-        i--;
+        j++;
     }
     print_no_details(*stack_a, *stack_b);
-    printf("ra \n");
-    ft_ra_or_rb(*stack_a);
-    print_no_details(*stack_a, *stack_b);
-    printf("rra \n");
-    ft_rra_or_rrb(*stack_a);
-    print_no_details(*stack_a, *stack_b);
-    printf("sa \n");
-    ft_sa_or_sb(*stack_a);
-    print_no_details(*stack_a, *stack_b);*/
+}
 
 int main(int ac, char **av)
 {
@@ -268,7 +322,7 @@ int main(int ac, char **av)
     }
     print_no_details(stack_a, stack_b);
     printf("\n");
-    push_swap(&stack_a, &stack_b, ac - 1);
+    push_swap(&stack_a, &stack_b, ac - 2);
     free_stack(stack_a);
     free_stack(stack_b);
     return (0);

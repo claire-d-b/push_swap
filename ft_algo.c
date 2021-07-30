@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 15:40:41 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/07/23 17:21:28 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/07/29 06:55:06 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int which_index_tbs(int value, t_list *stack)
         go_to_first_el(&stack);
         while (stack->next)
         {
-            if (value < stack->value)
+            if (value < *(int *)stack->value)
                 return (i);
             i++;
             stack = stack->next;
@@ -40,7 +40,7 @@ int find_el(int value, t_list *stack)
     {
         while (stack->next)
         {
-            if (value == stack->value)
+            if (value == *(int *)stack->value)
                 return (i);
             i++;
         }
