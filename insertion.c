@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/07/31 08:11:25 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/07/31 17:04:04 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,78 +260,13 @@ void    print_stack_a_a_b(t_list *stack_a, t_list *stack_b)
     }
 }
 
-int is_max(int lst, int max)
-{
-    if (lst == max)
-        return (1);
-    return (0);
-}
-
-int find_max(t_list *max)
-{
-    int max_value;
-
-    max_value = *(int*)max->value;
-    while (max->prec)
-        max = max->prec;
-    while (max->next)
-    {
-        if (max_value < *(int*)max->value)
-            max_value = *(int*)max->value;
-        max = max->next;
-    }
-    if (max_value < *(int*)max->value)
-        max_value = *(int*)max->value;
-    while (max->prec)
-        max = max->prec;
-    return (max_value);
-}
-
-int find_min(t_list *max)
-{
-    int max_value;
-
-    max_value = *(int*)max->value;
-    while (max->prec)
-        max = max->prec;
-    while (max->next)
-    {
-        if (max_value > *(int*)max->value)
-            max_value = *(int*)max->value;
-        max = max->next;
-    }
-    if (max_value > *(int*)max->value)
-        max_value = *(int*)max->value;
-    while (max->prec)
-        max = max->prec;
-    return (max_value);
-}
-
-int ra_o_rra(t_list *s_lst, int max)
-{
-    int i;
-    
-    i = 0;
-    while (s_lst->prec)
-        s_lst = s_lst->prec;
-    while (s_lst->next)
-    {
-        if (*(int*)s_lst->value == max)
-            return (i);
-        s_lst = s_lst->next;
-        i++;
-    }
-    return (i);
-}
-
 int find_index(int value, t_list *stack)
 {
     int x;
     int start_value;
 
     x = 0;
-    while (stack->prec) 
-        stack = stack->prec;
+    go_to_first_el(&stack);
     start_value = *(int*)stack->value;
     while (stack->next)
     {
@@ -345,33 +280,8 @@ int find_index(int value, t_list *stack)
     }
     if (value < *(int*)stack->value && value > start_value)
         return (x);
-    while (stack->prec)
-        stack = stack->prec;
+    go_to_first_el(&stack);
     return (-1);
-}
-
-int checker_max(t_list *s_lst)
-{
-    while (s_lst->prec)
-        s_lst = s_lst->prec;
-    while (s_lst->next)
-    {
-        if (s_lst->value > s_lst->next->value)
-            return (0);
-        s_lst = s_lst->next;
-    }
-    return (1);
-}
-
-int checker_min(t_list *s_lst)
-{
-    while (s_lst->next)
-    {
-        if (*(int *)s_lst->value > *(int *)(s_lst->next->value))
-            return (0);
-        s_lst = s_lst->next;
-    }
-    return (1);
 }
 
 int    index_max_el(t_list **stack, int max)
@@ -399,6 +309,168 @@ int    index_max_el(t_list **stack, int max)
 //    printf("stack value %d\n", *(int*)(*stack)->value);
 //    printf("max value %d\n", i);
     return (i);
+}
+
+int find_max(t_list *max)
+{
+    int max_value;
+
+    go_to_first_el(&max);
+    max_value = *(int*)max->value;
+    while (max->next)
+    {
+        if (max_value < *(int*)max->value)
+            max_value = *(int*)max->value;
+        max = max->next;
+    }
+    if (max_value < *(int*)max->value)
+        max_value = *(int*)max->value;
+     go_to_first_el(&max);
+    return (max_value);
+}
+
+int find_min(t_list *max)
+{
+    int max_value;
+
+    go_to_first_el(&max);
+    max_value = *(int*)max->value;
+    while (max->next)
+    {
+        if (max_value > *(int*)max->value)
+            max_value = *(int*)max->value;
+        max = max->next;
+    }
+    if (max_value > *(int*)max->value)
+        max_value = *(int*)max->value;
+     go_to_first_el(&max);
+    return (max_value);
+}
+
+void    choose_value(t_list **stack_a, t_list *stack_b, int y, int j, t_list **cmd)
+{
+    int i;
+    int count;
+    int comp;
+    int ret;
+    int k;
+    int boolean;
+
+    i = 0;
+    ret = 0;
+    k = 0;
+    boolean = 0;
+    go_to_first_el(stack_a);
+    while ((*stack_a)->next)
+    {
+        count = find_index(*(int *)(*stack_a)->value, stack_b);
+        if (count == -1 && *(int*)(*stack_a)->value > find_max(stack_b))
+            count = index_max_el(&stack_b, find_max(stack_b));
+        else if (count == -1 && *(int*)(*stack_a)->value < find_min(stack_b))
+            count = index_max_el(&stack_b, find_min(stack_b)) + 1;
+        if (count > y / 2)
+            count = y - count;
+        if (i > j / 2)
+        {
+            boolean = 1;
+            k = j - i;
+        }
+        else
+        {
+            boolean = 0;
+            k = i;
+        }
+        if (count + k < comp || i == 0)
+        {
+            comp = count + k;
+            ret = k;
+        }
+        *stack_a = (*stack_a)->next;
+        i++;
+    }
+    count = find_index(*(int *)(*stack_a)->value, stack_b);
+        if (count == -1 && *(int*)(*stack_a)->value > find_max(stack_b))
+            count = index_max_el(&stack_b, find_max(stack_b));
+        else if (count == -1 && *(int*)(*stack_a)->value < find_min(stack_b))
+            count = index_max_el(&stack_b, find_min(stack_b)) + 1;
+        if (count > y / 2)
+            count = y - count;
+        if (i > j / 2)
+        {
+            boolean = 1;
+            k = j - i;
+        }
+        else
+        {
+            boolean = 0;
+            k = i;
+        }
+        if (count + k < comp || i == 0)
+        {
+            comp = count + k;
+            ret = k;
+        }
+    go_to_first_el(stack_a);
+    i = 0;
+    while (i < ret && boolean == 0)
+    {
+        ft_ra(*stack_a, cmd);
+        i++;
+    }
+    while (i < ret && boolean == 1)
+    {
+        ft_rra(*stack_a, cmd);
+        i++;
+    }
+    go_to_first_el(stack_a);
+}
+
+int is_max(int lst, int max)
+{
+    if (lst == max)
+        return (1);
+    return (0);
+}
+
+int ra_o_rra(t_list *s_lst, int max)
+{
+    int i;
+    
+    i = 0;
+    while (s_lst->prec)
+        s_lst = s_lst->prec;
+    while (s_lst->next)
+    {
+        if (*(int*)s_lst->value == max)
+            return (i);
+        s_lst = s_lst->next;
+        i++;
+    }
+    return (i);
+}
+
+int checker_max(t_list *s_lst)
+{
+    while (s_lst->prec)
+        s_lst = s_lst->prec;
+    while (s_lst->next)
+    {
+        if (s_lst->value > s_lst->next->value)
+            return (0);
+        s_lst = s_lst->next;
+    }
+    return (1);
+}
+
+int checker_min(t_list *s_lst)
+{
+    while (s_lst->next)
+    {
+        if (*(int *)s_lst->value > *(int *)(s_lst->next->value))
+            return (0);
+        s_lst = s_lst->next;
+    }
+    return (1);
 }
 
 int find_biggest_gap(t_list **stack, int *value)
@@ -431,7 +503,7 @@ int find_biggest_gap(t_list **stack, int *value)
 
 void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, int y, t_list **cmd)
 {
-    int i;
+        int i;
 
     i = 0;
 //    printf("y %d\n", y);
@@ -467,6 +539,7 @@ void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, 
     if (*stack_b && count_el(*stack_b) > 0)
     {
         go_to_first_el(stack_a);
+        choose_value(stack_a, *stack_b, y, j, cmd);
         i = find_index(*(int*)(*stack_a)->value, *stack_b);
 //        printf("i %d\n", i);
         if (i == -1)
@@ -626,7 +699,7 @@ int main(int ac, char **av)
     push_swap(&stack_a, &stack_b, ac - 1, &cmd);
     if (checker_min(stack_a))
         printf("OK");
-//    print_no_details(stack_a, stack_b);
+    print_no_details(stack_a, stack_b);
 //   printf("cmd value %s\n", (char *)cmd->value);
     go_to_first_el(&cmd);
 //    print_commands(&cmd);
