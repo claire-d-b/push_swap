@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 15:13:05 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/01 19:18:46 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/01 19:38:51 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,116 @@ void    ft_pa(t_list **stack_a, t_list **stack_b, t_list **cmd)
 
 void    ft_rr(t_list *stack_a, t_list *stack_b, t_list **cmd)
 {
-    ft_ra(stack_a, cmd);
-    ft_rb(stack_b, cmd);
-    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rr")));   
+    t_list *tmp;
+
+    tmp = NULL;
+    if (count_el(stack_a) > 2)
+    {
+        go_to_last_el(&stack_a);
+        tmp = stack_a;
+        go_to_first_el(&stack_a);
+        stack_a->next->prec = 0;
+        stack_a->prec = tmp;
+        tmp->next = stack_a;
+        stack_a->next = 0;
+    }
+    else
+    {
+        go_to_last_el(&stack_a);
+        if (count_el(stack_a) > 1)
+        {
+            ft_swap(stack_a->prec->value, stack_a->value);
+        }
+    }
+    if (count_el(stack_b) > 2)
+    {
+        go_to_last_el(&stack_b);
+        tmp = stack_b;
+        go_to_first_el(&stack_b);
+        stack_b->next->prec = 0;
+        stack_b->prec = tmp;
+        tmp->next = stack_b;
+        stack_b->next = 0;
+    }
+    else
+    {
+        go_to_last_el(&stack_b);
+        if (count_el(stack_b) > 1)
+        {
+            ft_swap(stack_b->prec->value, stack_b->value);
+        }
+    }
+    if (count_el(stack_a) > 2 && count_el(stack_b) > 2)
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rr")));
+    else if (count_el(stack_a) > 2)
+    {
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("ra")));
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sb")));
+    }
+    else if (count_el(stack_b) > 2)
+    {
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rb")));
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sa")));
+    }
+    else
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("ss")));  
 }
 
 void    ft_rrr(t_list *stack_a, t_list *stack_b, t_list **cmd)
 {
-    ft_rra(stack_a, cmd);
-    ft_rrb(stack_b, cmd);
-    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rrr")));   
+    t_list *tmp;
+    
+    tmp = NULL;
+    if (count_el(stack_a) > 2)
+    {
+        go_to_first_el(&stack_a);
+        tmp = stack_a;
+        go_to_last_el(&stack_a);
+        stack_a->prec->next = 0;
+        stack_a->next = tmp;
+        tmp->prec = stack_a;
+        stack_a->prec = 0;
+    }
+    else
+    {
+        go_to_last_el(&stack_a);
+        if (count_el(stack_a) > 1)
+        {
+            ft_swap(stack_a->prec->value, stack_a->value);
+        }
+    }
+    if (count_el(stack_b) > 2)
+    {
+        go_to_first_el(&stack_b);
+        tmp = stack_b;
+        go_to_last_el(&stack_b);
+        stack_b->prec->next = 0;
+        stack_b->next = tmp;
+        tmp->prec = stack_b;
+        stack_b->prec = 0;
+    }
+    else
+    {
+        go_to_last_el(&stack_b);
+        if (count_el(stack_b) > 1)
+        {
+            ft_swap(stack_b->prec->value, stack_b->value);
+        }
+    }
+    if (count_el(stack_a) > 2 && count_el(stack_b) > 2)
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rrr")));
+    else if (count_el(stack_a) > 2)
+    {
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rra")));
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sb")));
+    }
+    else if (count_el(stack_b) > 2)
+    {
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rrb")));
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sa")));
+    }
+    else
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("ss")));
 }
 
 void    ft_ra(t_list *stack, t_list **cmd)
@@ -108,10 +208,13 @@ void    ft_ra(t_list *stack, t_list **cmd)
         stack->prec = tmp;
         tmp->next = stack;
         stack->next = 0;
+        ft_lst_addback(cmd, ft_lstnew(ft_strdup("ra")));
     }
     else
+    {
         ft_sa(stack, cmd);
-    ft_lst_addback(cmd, ft_lstnew(ft_strdup("ra")));
+        ft_lst_addback(cmd, ft_lstnew(ft_strdup("sa")));
+    }
 }
 
 void    ft_rb(t_list *stack, t_list **cmd)
@@ -128,10 +231,13 @@ void    ft_rb(t_list *stack, t_list **cmd)
         stack->prec = tmp;
         tmp->next = stack;
         stack->next = 0;
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rb")));
     }
     else
+    {
         ft_sb(stack, cmd);
-    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rb")));
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sb")));
+    }
 }
 
 
@@ -149,10 +255,13 @@ void    ft_rra(t_list *stack, t_list **cmd)
         stack->next = tmp;
         tmp->prec = stack;
         stack->prec = 0;
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rra")));
     }
     else
+    {
         ft_sa(stack, cmd);
-    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rra")));
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sa")));
+    }
 }
 
 void    ft_rrb(t_list *stack, t_list **cmd)
@@ -169,10 +278,13 @@ void    ft_rrb(t_list *stack, t_list **cmd)
         stack->next = tmp;
         tmp->prec = stack;
         stack->prec = 0;
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rrb")));
     }
     else
+    {
         ft_sb(stack, cmd);
-    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rrb")));
+        ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sb")));
+    }
 }
 
 void    ft_swap(int *a, int *b)
@@ -184,22 +296,25 @@ void    ft_swap(int *a, int *b)
     *b = tmp;
 }
 
+void    ft_ss(t_list *stack_a, t_list *stack_b, t_list **cmd)
+{
+    (void)cmd;
+    ft_sa(stack_a, cmd);
+    ft_sb(stack_b, cmd);
+}
+
 void    ft_sa(t_list *stack, t_list **cmd)
 {
+    (void)cmd;
     go_to_last_el(&stack);
     if (count_el(stack) > 1)
-    {
         ft_swap(stack->prec->value, stack->value);
-    }
-    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sa")));
 }
 
 void    ft_sb(t_list *stack, t_list **cmd)
 {
+    (void)cmd;
     go_to_last_el(&stack);
     if (count_el(stack) > 1)
-    {
         ft_swap(stack->prec->value, stack->value);
-    }
-    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("sb")));
 }

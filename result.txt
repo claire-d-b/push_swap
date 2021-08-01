@@ -2,12 +2,12 @@ OKstack a v 1
 stack a v 2
 stack a v 3
 stack a v 4
-count 11
+count 10
 ---1---
 OKstack a v 24
 stack a v 78
 stack a v 89
-count 8
+count 7
 ---2---
 OKstack a v 19
 stack a v 20
@@ -18,7 +18,7 @@ count 11
 ---3---
 OKstack a v 3
 stack a v 4
-count 5
+count 4
 ---4---
 OKstack a v 1
 stack a v 2
@@ -26,7 +26,7 @@ stack a v 40
 stack a v 45
 stack a v 70
 stack a v 78
-count 16
+count 15
 ---5---
 OKstack a v 2
 stack a v 4
@@ -63,7 +63,7 @@ stack a v 23
 stack a v 24
 stack a v 30
 stack a v 43
-count 30
+count 28
 ---10---
 OKstack a v 1
 stack a v 2
@@ -80,29 +80,29 @@ stack a v 30
 stack a v 43
 stack a v 78
 stack a v 80
-count 56
+count 54
 ---11---
 OKstack a v -4
 stack a v -2
 stack a v 1
 stack a v 3
-count 10
+count 9
 ---12---
 OKstack a v -89
 stack a v 24
 stack a v 78
-count 7
+count 6
 ---13---
 OKstack a v -54
 stack a v -22
 stack a v -20
 stack a v 19
 stack a v 21
-count 13
+count 12
 ---14---
 OKstack a v -3
 stack a v 4
-count 5
+count 4
 ---15---
 OKstack a v -70
 stack a v -2
@@ -110,7 +110,7 @@ stack a v 1
 stack a v 40
 stack a v 45
 stack a v 78
-count 17
+count 16
 ---16---
 OKstack a v -57
 stack a v -8
@@ -119,7 +119,7 @@ stack a v -2
 stack a v 4
 stack a v 5
 stack a v 90
-count 22
+count 21
 ---17---
 OKstack a v -78
 stack a v -43
@@ -129,11 +129,11 @@ stack a v 7
 stack a v 8
 stack a v 9
 stack a v 24
-count 26
+count 25
 ---18---
 OKstack a v -9
 stack a v 8
-count 5
+count 4
 ---19---
 OKstack a v -1
 count 1
@@ -146,7 +146,7 @@ stack a v -5
 stack a v 7
 stack a v 23
 stack a v 24
-count 24
+count 23
 ---21---
 OKstack a v -78
 stack a v -43
@@ -163,7 +163,7 @@ stack a v -1
 stack a v 5
 stack a v 80
 stack a v 105
-count 52
+count 51
 ---22---
 OKstack a v -498
 stack a v -496
@@ -665,4 +665,4 @@ stack a v 494
 stack a v 498
 stack a v 499
 stack a v 500
-count 6517
+count 5441
