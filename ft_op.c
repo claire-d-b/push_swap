@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 15:13:05 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/07/29 19:20:39 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/01 19:18:46 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,20 @@ void    ft_pa(t_list **stack_a, t_list **stack_b, t_list **cmd)
     }
     *stack_b = tmp2;
     ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("pa")));
+}
+
+void    ft_rr(t_list *stack_a, t_list *stack_b, t_list **cmd)
+{
+    ft_ra(stack_a, cmd);
+    ft_rb(stack_b, cmd);
+    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rr")));   
+}
+
+void    ft_rrr(t_list *stack_a, t_list *stack_b, t_list **cmd)
+{
+    ft_rra(stack_a, cmd);
+    ft_rrb(stack_b, cmd);
+    ft_lst_addback(cmd, ft_lstnew((char *)ft_strdup("rrr")));   
 }
 
 void    ft_ra(t_list *stack, t_list **cmd)

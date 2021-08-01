@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/07/31 17:04:04 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/01 19:19:55 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ int find_min(t_list *max)
     return (max_value);
 }
 
-void    choose_value(t_list **stack_a, t_list *stack_b, int y, int j, t_list **cmd)
+int    choose_value(t_list **stack_a, t_list *stack_b, int y, int j, t_list **cmd, int *boule, int *index)
 {
     int i;
     int count;
@@ -355,15 +355,19 @@ void    choose_value(t_list **stack_a, t_list *stack_b, int y, int j, t_list **c
     int ret;
     int k;
     int boolean;
+    int idx;
 
     i = 0;
     ret = 0;
     k = 0;
     boolean = 0;
+    idx = 0;
+    (void)cmd;
     go_to_first_el(stack_a);
     while ((*stack_a)->next)
     {
         count = find_index(*(int *)(*stack_a)->value, stack_b);
+        idx = count;
         if (count == -1 && *(int*)(*stack_a)->value > find_max(stack_b))
             count = index_max_el(&stack_b, find_max(stack_b));
         else if (count == -1 && *(int*)(*stack_a)->value < find_min(stack_b))
@@ -384,11 +388,14 @@ void    choose_value(t_list **stack_a, t_list *stack_b, int y, int j, t_list **c
         {
             comp = count + k;
             ret = k;
+            *boule = boolean;
+            *index = idx;
         }
         *stack_a = (*stack_a)->next;
         i++;
     }
     count = find_index(*(int *)(*stack_a)->value, stack_b);
+    idx = count;
         if (count == -1 && *(int*)(*stack_a)->value > find_max(stack_b))
             count = index_max_el(&stack_b, find_max(stack_b));
         else if (count == -1 && *(int*)(*stack_a)->value < find_min(stack_b))
@@ -409,20 +416,11 @@ void    choose_value(t_list **stack_a, t_list *stack_b, int y, int j, t_list **c
         {
             comp = count + k;
             ret = k;
+            *boule = boolean;
+            *index = idx;
         }
     go_to_first_el(stack_a);
-    i = 0;
-    while (i < ret && boolean == 0)
-    {
-        ft_ra(*stack_a, cmd);
-        i++;
-    }
-    while (i < ret && boolean == 1)
-    {
-        ft_rra(*stack_a, cmd);
-        i++;
-    }
-    go_to_first_el(stack_a);
+    return (ret);
 }
 
 int is_max(int lst, int max)
@@ -504,7 +502,11 @@ int find_biggest_gap(t_list **stack, int *value)
 void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, int y, t_list **cmd)
 {
         int i;
+        int x;
+        int boule;
 
+    boule = 0;
+    x = 0;
     i = 0;
 //    printf("y %d\n", y);
     if (j == 0)
@@ -539,8 +541,8 @@ void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, 
     if (*stack_b && count_el(*stack_b) > 0)
     {
         go_to_first_el(stack_a);
-        choose_value(stack_a, *stack_b, y, j, cmd);
-        i = find_index(*(int*)(*stack_a)->value, *stack_b);
+        x = choose_value(stack_a, *stack_b, y, j, cmd, &boule, &i);
+    //    i = find_index(*(int*)(*stack_a)->value, *stack_b);
 //        printf("i %d\n", i);
         if (i == -1)
         {
@@ -564,6 +566,32 @@ void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, 
             }
             if (i > y / 2)
             {
+                while (i < y && boule == 1 && x)
+                {
+                    ft_rrr(*stack_a, *stack_b, cmd);
+                    go_to_first_el(stack_b);
+                    go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    i++;
+                    x--;
+                }
+                while (boule == 1 && x)
+                {
+                    ft_rra(*stack_a, cmd);
+                    go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
+                while (boule == 0 && x)
+                {
+                    ft_ra(*stack_a, cmd);
+                    go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
             //    printf("y - i = %d\n", y - i);
                 while (i < y)
                 {
@@ -576,6 +604,32 @@ void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, 
             }
             else
             {
+                while (i > 0 && boule == 0 && x)
+                {
+                    ft_rr(*stack_a, *stack_b, cmd);
+                    go_to_first_el(stack_b);
+                    go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    i--;
+                    x--;
+                }
+                while (boule == 0 && x)
+                {
+                    ft_ra(*stack_a, cmd);
+                    go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
+                while (boule == 1 && x)
+                {
+                    ft_rra(*stack_a, cmd);
+                    go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
                 while (i > 0)
                 {
                     ft_rb(*stack_b, cmd);
@@ -590,6 +644,32 @@ void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, 
         {
             if (i > y / 2)
             {
+                while (i < y - 1 && boule == 1 && x)
+                {
+                    ft_rrr(*stack_a, *stack_b, cmd);
+                    go_to_first_el(stack_b);
+                     go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    i++;
+                    x--;
+                }
+                while (boule == 1 && x)
+                {
+                    ft_rra(*stack_a, cmd);
+                     go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
+                while (boule == 0 && x)
+                {
+                    ft_ra(*stack_a, cmd);
+                     go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
                 while (i < y - 1)
                 {
                     ft_rrb(*stack_b, cmd);
@@ -601,6 +681,32 @@ void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, 
             }
             else
             {
+                while (i >= 0 && boule == 0 && x)
+                {
+                    ft_rr(*stack_a, *stack_b, cmd);
+                    go_to_first_el(stack_b);
+                     go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    i--;
+                    x--;
+                }
+                 while (boule == 0 && x)
+                {
+                    ft_ra(*stack_a, cmd);
+                     go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
+                while (boule == 1 && x)
+                {
+                    ft_rra(*stack_a, cmd);
+                     go_to_first_el(stack_a);
+                //    print_no_details(*stack_a, *stack_b);
+                //    printf("\n");
+                    x--;
+                }
                 while (i >= 0)
                 {
                     ft_rb(*stack_b, cmd);

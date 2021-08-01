@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:18:01 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/07/29 15:45:43 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/01 19:06:03 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ int     is_tb_rrotated(t_list *stack);
 int     is_tb_swapped(t_list *stack);
 char    *ft_strdup(char *str);
 int     ft_strlen(char *str);
+void    ft_rr(t_list *stack_a, t_list *stack_b, t_list **cmd);
+void    ft_rrr(t_list *stack_a, t_list *stack_b, t_list **cmd);
 
 #endif

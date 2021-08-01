@@ -63,7 +63,7 @@ stack a v 23
 stack a v 24
 stack a v 30
 stack a v 43
-count 29
+count 30
 ---10---
 OKstack a v 1
 stack a v 2
@@ -80,7 +80,7 @@ stack a v 30
 stack a v 43
 stack a v 78
 stack a v 80
-count 55
+count 56
 ---11---
 OKstack a v -4
 stack a v -2
@@ -665,4 +665,4 @@ stack a v 494
 stack a v 498
 stack a v 499
 stack a v 500
-count 16639
+count 6517
