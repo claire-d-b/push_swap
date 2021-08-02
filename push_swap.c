@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 12:34:15 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/02 17:04:49 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ int	main(int ac, char **av)
 
 	i = 1;
 	cmd = NULL;
+	if (ac < 2)
+		return (0);
 	nb = malloc(sizeof(int));
 	*nb = ft_atoi(av[i]);
 	init_stacks(&stack_a, &stack_b);
-	if (ac < 2)
-		return (0);
 	stack_a = ft_lstnew(nb);
 	i++;
 	while (i < ac)
@@ -66,12 +66,8 @@ int	main(int ac, char **av)
 		i++;
 	}
 	push_swap(&stack_a, &stack_b, ac - 1, &cmd);
-	if (checker(stack_a))
-		printf("OK");
-	print_no_details(stack_a, stack_b);
 	go_to_first_el(&cmd);
 	print_commands(&cmd);
-	print_count(&cmd);
 	free_stack(stack_a);
 	free_stack(cmd);
 	free_stack(stack_b);

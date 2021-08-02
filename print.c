@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:44:38 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 12:12:00 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/02 16:53:51 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	print_commands(t_list **cmd)
 {
     while ((*cmd)->next)
     {
-        printf("cmd %s\n", (char *)(*cmd)->value);
+        printf("%s\n", (char *)(*cmd)->value);
         *cmd = (*cmd)->next;
     }
-    printf("cmd %s\n", (char *)(*cmd)->value);
+    printf("%s\n", (char *)(*cmd)->value);
 }
 
 void	print_count(t_list **cmd)

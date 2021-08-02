@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:41:29 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 12:30:54 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/02 16:59:09 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	ft_atoi(const char *str)
 	i = 0;
 	j = 0;
 	res = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+	while (str[i] && (str[i] == 32 || (str[i] >= 9 && str[i] <= 13)))
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (str[i] && (str[i] == '+' || str[i] == '-'))
 	{
 		if (str[i] == '-')
 			j = -1;
@@ -66,7 +66,7 @@ int	ft_atoi(const char *str)
 			j = 1;
 		i++;
 	}
-	while (ft_isdigit(str[i]))
+	while (str[i] && ft_isdigit(str[i]))
 		res = res * 10 + (str[i++] - 48);
 	if (res == -2147483648)
 		return (res);
