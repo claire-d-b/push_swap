@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:18:01 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/01 19:38:08 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/02 11:04:19 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ typedef struct s_list
 typedef struct s_count
 {
     int count;
+    int stack_a_nb;
+    int stack_b_nb;
+    int r_or_rr;
+    int stack_a_idx;
+    int stack_b_idx;
+    int start_nb;
+    int real_index_b;
 }           t_count;
 
 void    print_no_details(t_list *stack_a, t_list *stack_b);

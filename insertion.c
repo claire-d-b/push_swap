@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/01 19:20:47 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/02 11:12:11 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int count_el(t_list *stack)
     int i;
 
     i = 0;
-    while (stack->prec)
-        stack = stack->prec;
+    go_to_first_el(&stack);
     while (stack->next)
     {
         stack = stack->next;
@@ -157,6 +156,18 @@ void    ft_lst_addfront(t_list **stack, t_list *el)
     el->next = (*stack);
     *stack = el;
     (*stack)->prec = 0;
+}
+
+void    init_struct_count(t_count *count, int args_nb)
+{
+    count->count = 0;
+    count->start_nb = args_nb;
+    count->stack_a_nb = args_nb;
+    count->stack_b_nb = 0;
+    count->r_or_rr = 0;
+    count->stack_a_idx = 0;
+    count->stack_b_idx = 0;
+    count->real_index_b = 0;
 }
 
 void    go_to_first_el(t_list **stack)
@@ -271,10 +282,7 @@ int find_index(int value, t_list *stack)
     while (stack->next)
     {
         if (value < *(int*)stack->value && value > *(int*)stack->next->value)
-        {
-        //    printf("index %d\n", x);
             return (x);
-        }
         stack = stack->next;
         x++;
     }
@@ -289,25 +297,18 @@ int    index_max_el(t_list **stack, int max)
     int i;
 
     i = 0;
-//    printf("stack value %d\n", *(int*)(*stack)->value);
     if (*stack)
     {
         go_to_first_el(stack);
-    //    printf("max %d\n", max);
         while ((*stack)->next)
         {
             if (*(int*)(*stack)->value == max)
-            {
-            //    printf("max value %d\n", i);
                 return (i);
-            }
             *stack = (*stack)->next;
             i++;
         }
         go_to_first_el(stack);
     }
-//    printf("stack value %d\n", *(int*)(*stack)->value);
-//    printf("max value %d\n", i);
     return (i);
 }
 
@@ -347,80 +348,64 @@ int find_min(t_list *max)
     return (max_value);
 }
 
-int    choose_value(t_list **stack_a, t_list *stack_b, int y, int j, t_list **cmd, int *boule, int *index)
+void    set_ct_limit(int *ct, t_list **stack_a, t_list *stack_b, t_count *count)
+{
+    if (*ct == -1 && *(int*)(*stack_a)->value > find_max(stack_b))
+    *ct = index_max_el(&stack_b, find_max(stack_b));
+    else if (*ct == -1 && *(int*)(*stack_a)->value < find_min(stack_b))
+        *ct = index_max_el(&stack_b, find_min(stack_b)) + 1;
+    if (*ct > count->stack_b_nb / 2)
+        *ct = count->stack_b_nb - *ct;
+}
+
+void    set_if_high_or_low(int i, int *k, int *boolean, t_count *count)
+{
+    if (i > count->stack_a_nb / 2)
+    {
+        *boolean = 1;
+        *k = count->stack_a_nb - i;
+    }
+    else
+    {
+        *boolean = 0;
+        *k = i;
+    }
+}
+
+void    init_four_values(int *i, int *k, int *boolean, int *ct)
+{
+    *i = 0;
+    *k = 0;
+    *boolean = 0;
+    *ct = 0;
+}
+
+void    choose_value(t_list **stack_a, t_list *stack_b, t_count *count)
 {
     int i;
-    int count;
+    int ct;
     int comp;
-    int ret;
     int k;
     int boolean;
-    int idx;
 
-    i = 0;
-    ret = 0;
-    k = 0;
-    boolean = 0;
-    idx = 0;
-    (void)cmd;
-    go_to_first_el(stack_a);
-    while ((*stack_a)->next)
+    init_four_values(&i, &k, &boolean, &ct);
+    while (i < count->stack_a_nb)
     {
-        count = find_index(*(int *)(*stack_a)->value, stack_b);
-        idx = count;
-        if (count == -1 && *(int*)(*stack_a)->value > find_max(stack_b))
-            count = index_max_el(&stack_b, find_max(stack_b));
-        else if (count == -1 && *(int*)(*stack_a)->value < find_min(stack_b))
-            count = index_max_el(&stack_b, find_min(stack_b)) + 1;
-        if (count > y / 2)
-            count = y - count;
-        if (i > j / 2)
+        ct = find_index(*(int *)(*stack_a)->value, stack_b);
+        count->real_index_b = ct;
+        set_ct_limit(&ct, stack_a, stack_b, count);
+        set_if_high_or_low(i, &k, &boolean, count);
+        if (ct + k < comp || i == 0)
         {
-            boolean = 1;
-            k = j - i;
+            comp = ct + k;
+            count->stack_a_idx = k;
+            count->r_or_rr = boolean;
+            count->stack_b_idx = count->real_index_b;
         }
-        else
-        {
-            boolean = 0;
-            k = i;
-        }
-        if (count + k < comp || i == 0)
-        {
-            comp = count + k;
-            ret = k;
-            *boule = boolean;
-            *index = idx;
-        }
-        *stack_a = (*stack_a)->next;
+        if (i < count->stack_a_nb - 1)
+            *stack_a = (*stack_a)->next;
         i++;
     }
-    count = find_index(*(int *)(*stack_a)->value, stack_b);
-    idx = count;
-        if (count == -1 && *(int*)(*stack_a)->value > find_max(stack_b))
-            count = index_max_el(&stack_b, find_max(stack_b));
-        else if (count == -1 && *(int*)(*stack_a)->value < find_min(stack_b))
-            count = index_max_el(&stack_b, find_min(stack_b)) + 1;
-        if (count > y / 2)
-            count = y - count;
-        if (i > j / 2)
-        {
-            boolean = 1;
-            k = j - i;
-        }
-        else
-        {
-            boolean = 0;
-            k = i;
-        }
-        if (count + k < comp || i == 0)
-        {
-            comp = count + k;
-            ret = k;
-            *boule = boolean;
-            *index = idx;
-        }
-    go_to_first_el(stack_a);
-    return (ret);
 }
 
 int is_max(int lst, int max)
@@ -495,239 +480,187 @@ int find_biggest_gap(t_list **stack, int *value)
     }
     return (ret);
 }
-//sens
-//prec
-//nb vs j
 
-void    sort(t_list **stack_a, t_list **stack_b, int j, t_count *count, int nb, int y, t_list **cmd)
+void    last_sort(t_list **stack_b, t_count *count, t_list **cmd)
 {
-        int i;
-        int x;
-        int boule;
-
-    boule = 0;
-    x = 0;
-    i = 0;
-//    printf("y %d\n", y);
-    if (j == 0)
+    go_to_first_el(stack_b);
+    count->stack_b_idx = index_max_el(stack_b, find_min(*stack_b)) + 1;
+    if (count->stack_b_idx <= count->stack_b_nb / 2)
     {
-        go_to_first_el(stack_b);
-        i = index_max_el(stack_b, find_min(*stack_b)) + 1;
-        if (i <= y / 2)
+        while (count->stack_b_idx > 0)
         {
-            while (i > 0)
-            {
-                ft_rb(*stack_b, cmd);
-                go_to_first_el(stack_b);
-                i--;
-            }
+            ft_rb(*stack_b, cmd);
+            go_to_first_el(stack_b);
+            count->stack_b_idx--;
         }
-        else
+    }
+    else
+    {
+        while (count->stack_b_idx < count->stack_b_nb)
         {
-            while (i < y)
-            {
-                ft_rrb(*stack_b, cmd);
-                go_to_first_el(stack_b);
-                i++;
-            }
+            ft_rrb(*stack_b, cmd);
+            go_to_first_el(stack_b);
+            count->stack_b_idx++;
         }
-    //    print_no_details(*stack_a, *stack_b);
-    //    printf("\n");
+    }
+}
+
+void    high_limit(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd)
+{
+    if (count->stack_b_idx > count->stack_b_nb / 2)
+    {
+        while (count->stack_b_idx < count->stack_b_nb && count->r_or_rr == 1 && count->stack_a_idx)
+        {
+            ft_rrr(*stack_a, *stack_b, cmd);
+            count->stack_b_idx++;
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 1 && count->stack_a_idx)
+        {
+            ft_rra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 0 && count->stack_a_idx)
+        {
+            ft_ra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->stack_b_idx < count->stack_b_nb)
+        {
+            ft_rrb(*stack_b, cmd);
+            go_to_first_el(stack_b);
+            count->stack_b_idx++;
+        }
+    }
+}
+
+void    low_limit(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd)
+{
+    if (count->stack_b_idx <= count->stack_b_nb / 2)
+    {
+        while (count->stack_b_idx > 0 && count->r_or_rr == 0 && count->stack_a_idx)
+        {
+            ft_rr(*stack_a, *stack_b, cmd);
+            count->stack_b_idx--;
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 0 && count->stack_a_idx)
+        {
+            ft_ra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 1 && count->stack_a_idx)
+        {
+            ft_rra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->stack_b_idx > 0)
+        {
+            ft_rb(*stack_b, cmd);
+            count->stack_b_idx--;
+        }
+    }
+}
+
+void    high_insert(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd)
+{
+    if (count->stack_b_idx > count->stack_b_nb / 2)
+    {
+        while (count->stack_b_idx < count->stack_b_nb - 1 && count->r_or_rr == 1 && count->stack_a_idx)
+        {
+            ft_rrr(*stack_a, *stack_b, cmd);
+            count->stack_b_idx++;
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 1 && count->stack_a_idx)
+        {
+            ft_rra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 0 && count->stack_a_idx)
+        {
+            ft_ra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->stack_b_idx < count->stack_b_nb - 1)
+        {
+            ft_rrb(*stack_b, cmd);
+            count->stack_b_idx++;
+        }
+    }
+}
+
+void    low_insert(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd)
+{
+    if (count->stack_b_idx <= count->stack_b_nb / 2)
+    {
+        while (count->stack_b_idx >= 0 && count->r_or_rr == 0 && count->stack_a_idx)
+        {
+            ft_rr(*stack_a, *stack_b, cmd);
+            count->stack_b_idx--;
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 0 && count->stack_a_idx)
+        {
+            ft_ra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->r_or_rr == 1 && count->stack_a_idx)
+        {
+            ft_rra(*stack_a, cmd);
+            count->stack_a_idx--;
+        }
+        while (count->stack_b_idx >= 0)
+        {
+            ft_rb(*stack_b, cmd);
+            count->stack_b_idx--;
+        }
+    }
+}
+
+void    set_index_limit(t_list **stack_a, t_list **stack_b, t_count *count)
+{
+    go_to_first_el(stack_b);
+    go_to_first_el(stack_a);
+    if (*(int*)(*stack_a)->value > find_max(*stack_b))
+        count->stack_b_idx = index_max_el(stack_b, find_max(*stack_b));
+    else
+        count->stack_b_idx = index_max_el(stack_b, find_min(*stack_b)) + 1;
+}
+
+void    handle_limits(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd)
+{
+    set_index_limit(stack_a, stack_b, count);
+    high_limit(stack_a, stack_b, count, cmd);
+    low_limit(stack_a, stack_b, count, cmd);
+}
+
+void    sort(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd)
+{
+    count->r_or_rr = 0;
+    count->stack_a_idx = 0;
+    count->stack_b_idx = 0;
+    if (count->stack_a_nb == 0)
+    {
+        last_sort(stack_b, count, cmd);
         return ;
     }
-    if (*stack_b)
-        go_to_first_el(stack_b);
-//    printf("stack_a %d\n", *(int*)(*stack_a)->value);
     if (*stack_b && count_el(*stack_b) > 0)
     {
         go_to_first_el(stack_a);
-        x = choose_value(stack_a, *stack_b, y, j, cmd, &boule, &i);
-    //    i = find_index(*(int*)(*stack_a)->value, *stack_b);
-//        printf("i %d\n", i);
-        if (i == -1)
-        {
-            go_to_first_el(stack_b);
-            if (*(int*)(*stack_a)->value > find_max(*stack_b))
-            {
-                i = index_max_el(stack_b, find_max(*stack_b));
-            //    printf("min %d\n", find_max(*stack_b));
-            //    printf("i %d\n", i);
-                go_to_first_el(stack_b);
-            //    print_no_details(*stack_a, *stack_b);
-            //        printf("\n");
-            }
-            else
-            {
-            //    printf("min %d\n", find_min(*stack_b));
-                i = index_max_el(stack_b, find_min(*stack_b)) + 1;
-                go_to_first_el(stack_b);
-            //    print_no_details(*stack_a, *stack_b);
-            //        printf("\n");
-            }
-            if (i > y / 2)
-            {
-                while (i < y && boule == 1 && x)
-                {
-                    ft_rrr(*stack_a, *stack_b, cmd);
-                    go_to_first_el(stack_b);
-                    go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i++;
-                    x--;
-                }
-                while (boule == 1 && x)
-                {
-                    ft_rra(*stack_a, cmd);
-                    go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-                while (boule == 0 && x)
-                {
-                    ft_ra(*stack_a, cmd);
-                    go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-            //    printf("y - i = %d\n", y - i);
-                while (i < y)
-                {
-                    ft_rrb(*stack_b, cmd);
-                    go_to_first_el(stack_b);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i++;
-                }
-            }
-            else
-            {
-                while (i > 0 && boule == 0 && x)
-                {
-                    ft_rr(*stack_a, *stack_b, cmd);
-                    go_to_first_el(stack_b);
-                    go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i--;
-                    x--;
-                }
-                while (boule == 0 && x)
-                {
-                    ft_ra(*stack_a, cmd);
-                    go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-                while (boule == 1 && x)
-                {
-                    ft_rra(*stack_a, cmd);
-                    go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-                while (i > 0)
-                {
-                    ft_rb(*stack_b, cmd);
-                    go_to_first_el(stack_b);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i--;
-                }
-            }
-        }
+        choose_value(stack_a, *stack_b, count);
+        if (count->stack_b_idx == -1)
+            handle_limits(stack_a, stack_b, count, cmd);
         else
         {
-            if (i > y / 2)
-            {
-                while (i < y - 1 && boule == 1 && x)
-                {
-                    ft_rrr(*stack_a, *stack_b, cmd);
-                    go_to_first_el(stack_b);
-                     go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i++;
-                    x--;
-                }
-                while (boule == 1 && x)
-                {
-                    ft_rra(*stack_a, cmd);
-                     go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-                while (boule == 0 && x)
-                {
-                    ft_ra(*stack_a, cmd);
-                     go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-                while (i < y - 1)
-                {
-                    ft_rrb(*stack_b, cmd);
-                    go_to_first_el(stack_b);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i++;
-                }
-            }
-            else
-            {
-                while (i >= 0 && boule == 0 && x)
-                {
-                    ft_rr(*stack_a, *stack_b, cmd);
-                    go_to_first_el(stack_b);
-                     go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i--;
-                    x--;
-                }
-                 while (boule == 0 && x)
-                {
-                    ft_ra(*stack_a, cmd);
-                     go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-                while (boule == 1 && x)
-                {
-                    ft_rra(*stack_a, cmd);
-                     go_to_first_el(stack_a);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    x--;
-                }
-                while (i >= 0)
-                {
-                    ft_rb(*stack_b, cmd);
-                    go_to_first_el(stack_b);
-                //    print_no_details(*stack_a, *stack_b);
-                //    printf("\n");
-                    i--;
-                }
-            }
+            high_insert(stack_a, stack_b, count, cmd);
+            low_insert(stack_a, stack_b, count, cmd);
         }
     }
-    j--;
     ft_pb(stack_a, stack_b, cmd);
-    y++;
-//    print_no_details(*stack_a, *stack_b);
-//    printf("\n");
-    if (*stack_b)
-        go_to_first_el(stack_b);
-    if (*stack_a)
-        go_to_first_el(stack_a);
-    sort(stack_a, stack_b, j, count, nb, y, cmd);
+    count->stack_a_nb--;
+    count->stack_b_nb++;
+    sort(stack_a, stack_b, count, cmd);
 }
 
 void    push_swap(t_list **stack_a, t_list **stack_b, int nb, t_list **cmd)
@@ -740,9 +673,9 @@ void    push_swap(t_list **stack_a, t_list **stack_b, int nb, t_list **cmd)
     x = 0;
     j = nb;
     max = 0;
-    count.count = 0;
+    init_struct_count(&count, nb);
 //    print_no_details(*stack_a, *stack_b);
-    sort(stack_a, stack_b, j, &count, nb, 0, cmd);
+    sort(stack_a, stack_b, &count, cmd);
     if (*stack_b)
         go_to_first_el(stack_b);
     while (*stack_b)
