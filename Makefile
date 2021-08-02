@@ -1,6 +1,17 @@
-SRCS =	./ft_op.c\
-	./insertion.c\
-	./ft_algo.c\
+SRCS =	./combine.c\
+	./find_sort_style.c\
+	./init.c\
+	./list.c\
+	./max_min.c\
+	./print.c\
+	./push_swap.c\
+	./push.c\
+	./rotate.c\
+	./sort_utils.c\
+	./sort.c\
+	./stack_utils.c\
+	./swap.c\
+	./utils.c\
 
 RENAME		= mv a.out push_swap
 OBJ			= $(SRCS:.c=.o)
