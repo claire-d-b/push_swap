@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 17:04:49 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/02 17:31:01 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int ac, char **av)
 	nb = malloc(sizeof(int));
 	*nb = ft_atoi(av[i]);
 	init_stacks(&stack_a, &stack_b);
-	stack_a = ft_lstnew(nb);
+	ft_lst_addback(&stack_a, ft_lstnew(nb));
 	i++;
 	while (i < ac)
 	{

@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:53:09 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 12:31:44 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/03 05:09:16 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	choose_value(t_list **stack_a, t_list *stack_b, t_count *count)
 	int	boolean;
 
 	init_four_values(&i, &k, &boolean, &ct);
+	comp = 0;
 	while (i < count->stack_a_nb)
 	{
 		ct = find_index(*(int *)(*stack_a)->value, stack_b);

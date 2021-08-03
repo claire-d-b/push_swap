@@ -16,11 +16,11 @@ SRCS =	./combine.c\
 RENAME		= mv a.out push_swap
 OBJ			= $(SRCS:.c=.o)
 NAME		= push_swap
-FS			= a.out.dSYM minishell.dSYM
+FS			= a.out.dSYM push_swap.dSYM 
 CC			= clang
 RM			= rm -f
 RM_DIR		= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror
 $(NAME):		$(OBJ)
 #add CFLAGS
 				@$(CC) $(CFLAGS) $(SRCS)
