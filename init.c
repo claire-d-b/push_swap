@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:45:47 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 12:11:09 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/04 16:04:44 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,16 @@ void	init_struct_count(t_count *count, int args_nb)
 	count->stack_a_idx = 0;
 	count->stack_b_idx = 0;
 	count->real_index_b = 0;
+}
+
+void	init_two_values(int *i, t_list **cmd)
+{
+	*i = 1;
+	*cmd = NULL;
+}
+
+void	free_string(char *str)
+{
+	free(str);
+	str = NULL;
 }

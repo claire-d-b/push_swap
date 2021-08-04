@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:51:26 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 12:25:29 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/03 07:09:15 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	sort(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd)
 		last_sort(stack_b, count, cmd);
 		return ;
 	}
-	if (*stack_b && count_el(*stack_b) > 0)
+	if (*stack_b && count_el(*stack_b) > 1)
 	{
 		go_to_first_el(stack_a);
 		choose_value(stack_a, *stack_b, count);

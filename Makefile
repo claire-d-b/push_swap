@@ -1,12 +1,15 @@
 SRCS =	./combine.c\
+	./errors.c\
 	./find_sort_style.c\
 	./init.c\
 	./list.c\
 	./max_min.c\
+	./nb_utils.c\
 	./print.c\
 	./push_swap.c\
 	./push.c\
 	./rotate.c\
+	./small_lists.c\
 	./sort_utils.c\
 	./sort.c\
 	./stack_utils.c\
@@ -20,7 +23,7 @@ FS			= a.out.dSYM push_swap.dSYM
 CC			= clang
 RM			= rm -f
 RM_DIR		= rm -rf
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
 $(NAME):		$(OBJ)
 #add CFLAGS
 				@$(CC) $(CFLAGS) $(SRCS)

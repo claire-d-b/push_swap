@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:18:01 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 17:25:24 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/04 16:06:12 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ void	ft_rrr_utils(t_list *stack);
 void	ft_rrr(t_list *stack_a, t_list *stack_b, t_list **cmd);
 
 /*
+** errors
+*/
+int		handle_errors(int count, char **args);
+int		is_not_numeric(char *str);
+void	ft_putstr_fd(char *s, int fd);
+
+/*
 ** find_sort_style
 */
 int		find_index(int value, t_list *stack);
@@ -57,6 +64,8 @@ void	choose_value(t_list **stack_a, t_list *stack_b, t_count *count);
 void	init_four_values(int *i, int *k, int *boolean, int *ct);
 int		init_stacks(t_list **stack_a, t_list **stack_b);
 void	init_struct_count(t_count *count, int args_nb);
+void	init_two_values(int *i, t_list **cmd);
+void	free_string(char *str);
 
 /*
 ** list
@@ -76,18 +85,22 @@ void	set_ct_limit(int *ct, t_list **stack_a, t_list *stack_b, \
 t_count *count);
 
 /*
+** nb_utils
+*/
+char	*ft_itoa(int n);
+
+/*
 ** print
 */
 void	print_commands(t_list **cmd);
-void	print_count(t_list **cmd);
-void	print_no_details(t_list *stack_a, t_list *stack_b);
-void	print_stack_a_a_b(t_list *stack_a, t_list *stack_b);
 
 /*
 ** push_swap
 */
 int		checker(t_list *s_lst);
 void	push_swap(t_list **stack_a, t_list **stack_b, int nb, t_list **cmd);
+void	print_commands_free_stacks(t_list **cmd, t_list **stack_a, \
+t_list **stack_b);
 
 /*
 ** push
@@ -102,6 +115,15 @@ void	ft_ra(t_list *stack, t_list **cmd);
 void	ft_rb(t_list *stack, t_list **cmd);
 void	ft_rra(t_list *stack, t_list **cmd);
 void	ft_rrb(t_list *stack, t_list **cmd);
+
+/*
+** small_lists
+*/
+void	up_to_five_numbers(t_list **stack_a, t_list **stack_b, t_list **cmd, \
+int count);
+void	sort_three_numbers(t_list **stack_a, t_list **cmd);
+void	place_smallest_nbs(int *idx, int count, t_list **stack_a, t_list **cmd);
+void	swap_list_two_el(t_list **stack_a, t_list **cmd);
 
 /*
 ** sort_utils
@@ -147,5 +169,6 @@ int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 int		ft_isdigit(char c);
 int		ft_atoi(const char *str);
+int		ft_strcmp(char *s1, char *s2);
 
 #endif

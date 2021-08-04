@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:44:38 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 16:53:51 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/04 16:05:58 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,88 +14,16 @@
 
 void	print_commands(t_list **cmd)
 {
-    while ((*cmd)->next)
-    {
-        printf("%s\n", (char *)(*cmd)->value);
-        *cmd = (*cmd)->next;
-    }
-    printf("%s\n", (char *)(*cmd)->value);
-}
-
-void	print_count(t_list **cmd)
-{
-    int i;
-
-    i = 0;
-    go_to_first_el(cmd);
-    while ((*cmd)->next)
-    {
-        *cmd = (*cmd)->next;
-        i++;
-    }
-    printf("count %d\n", i);
-}
-
-void	print_no_details(t_list *stack_a, t_list *stack_b)
-{
-    if (stack_a)
-    {
-        while (stack_a->prec)
-        stack_a = stack_a->prec;
-        while (stack_a->next)
-        {
-            printf("stack a v %d\n", *(int *)stack_a->value);
-            stack_a = stack_a->next;
-        }
-        printf("stack a v %d\n", *(int *)stack_a->value);
-    }
-    if (stack_b)
-    {
-        while (stack_b->prec)
-            stack_b = stack_b->prec;
-        while (stack_b->next)
-        {
-            printf("stack b v %d\n", *(int *)stack_b->value);
-            stack_b = stack_b->next;
-        }
-        printf("stack b v %d\n", *(int *)stack_b->value);
-    }
-}
-
-void	print_stack_a_a_b(t_list *stack_a, t_list *stack_b)
-{
-    if (stack_a)
-    {
-        while (stack_a->prec)
-        stack_a = stack_a->prec;
-        while (stack_a->next)
-        {
-            printf("stack a v %d\n", *(int*)stack_a->value);
-            printf("stack a %d\n", (int)stack_a);
-            printf("stack a next %d\n", (int)stack_a->next);
-            printf("stack a prec %d\n", (int)stack_a->prec);
-            stack_a = stack_a->next;
-        }
-        printf("stack a v %d\n", *(int*)stack_a->value);
-        printf("stack a %d\n", (int)stack_a);
-        printf("stack a next %d\n", (int)stack_a->next);
-        printf("stack a prec %d\n", (int)stack_a->prec);
-    }
-    if (stack_b)
-    {
-        while (stack_b->prec)
-            stack_b = stack_b->prec;
-        while (stack_b->next)
-        {
-            printf("stack b v %d\n", *(int*)stack_b->value);
-            printf("stack b %d\n", (int)stack_b);
-            printf("stack b next %d\n", (int)stack_b->next);
-            printf("stack b prec %d\n", (int)stack_b->prec);
-            stack_b = stack_b->next;
-        }
-        printf("stack b v %d\n", *(int*)stack_b->value);
-        printf("stack b %d\n", (int)stack_b);
-        printf("stack b next %d\n", (int)stack_b->next);
-        printf("stack b prec %d\n", (int)stack_b->prec);
-    }
+	go_to_first_el(cmd);
+	if (*cmd)
+	{
+		while ((*cmd)->next)
+		{
+			ft_putstr_fd((char *)(*cmd)->value, 1);
+			ft_putstr_fd("\n", 1);
+			*cmd = (*cmd)->next;
+		}
+		ft_putstr_fd((char *)(*cmd)->value, 1);
+		ft_putstr_fd("\n", 1);
+	}
 }
