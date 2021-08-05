@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 05:20:35 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 11:50:26 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/05 12:14:38 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	handle_errors(int count, char **args)
 	string = NULL;
 	number = 0;
 	if (count < 2)
-		return (1);
+		return (-1);
 	while (args[i])
 	{
 		number = ft_atoi(args[i]);

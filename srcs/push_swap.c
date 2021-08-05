@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 11:50:54 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/05 12:14:18 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	main(int ac, char **av)
 
 	nb = NULL;
 	init_two_values(&i, &cmd);
-	if (handle_errors(ac, av) == 1)
+	if (handle_errors(ac, av))
 	{
-		ft_putstr_fd("Error\n", 2);
+		if (handle_errors(ac, av) == 1)
+			ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
 	init_stacks(&stack_a, &stack_b);
