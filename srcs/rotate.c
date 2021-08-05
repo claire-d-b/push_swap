@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:36:44 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/02 12:35:01 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/05 11:51:01 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	ft_ra(t_list *stack, t_list **cmd)
 {

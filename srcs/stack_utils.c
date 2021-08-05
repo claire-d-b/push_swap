@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:46:30 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/04 16:12:06 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/05 11:51:15 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	count_el(t_list *stack)
 {

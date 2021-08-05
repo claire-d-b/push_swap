@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:51:26 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/03 07:09:15 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/05 11:51:11 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	last_sort(t_list **stack_b, t_count *count, t_list **cmd)
 {

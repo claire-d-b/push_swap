@@ -1,20 +1,20 @@
-SRCS =	./combine.c\
-	./errors.c\
-	./find_sort_style.c\
-	./init.c\
-	./list.c\
-	./max_min.c\
-	./nb_utils.c\
-	./print.c\
-	./push_swap.c\
-	./push.c\
-	./rotate.c\
-	./small_lists.c\
-	./sort_utils.c\
-	./sort.c\
-	./stack_utils.c\
-	./swap.c\
-	./utils.c\
+SRCS =	./srcs/combine.c\
+	./srcs/errors.c\
+	./srcs/find_sort_style.c\
+	./srcs/init.c\
+	./srcs/list.c\
+	./srcs/max_min.c\
+	./srcs/nb_utils.c\
+	./srcs/print.c\
+	./srcs/push_swap.c\
+	./srcs/push.c\
+	./srcs/rotate.c\
+	./srcs/small_lists.c\
+	./srcs/sort_utils.c\
+	./srcs/sort.c\
+	./srcs/stack_utils.c\
+	./srcs/swap.c\
+	./srcs/utils.c\
 
 RENAME		= mv a.out push_swap
 OBJ			= $(SRCS:.c=.o)
