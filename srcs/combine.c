@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:37:40 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 11:50:29 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/05 16:30:06 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	ft_rr_utils(t_list *stack)
 
 void	ft_rr(t_list *stack_a, t_list *stack_b, t_list **cmd)
 {
-	t_list	*tmp;
-
-	tmp = NULL;
 	ft_rr_utils(stack_a);
 	ft_rr_utils(stack_b);
 	if (count_el(stack_a) > 2 && count_el(stack_b) > 2)

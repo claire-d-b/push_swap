@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 15:01:04 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 11:50:47 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/08 07:32:43 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	len_int(int n)
 	int	i;
 
 	i = 0;
-	if (n == -2147483648)
+	if (n == INT_MIN)
 		return (11);
-	else if (n <= 2147483647 && n > -2147483648)
+	else if (n <= INT_MAX && n > INT_MIN)
 	{
 		if (n == 0)
 			return (1);
@@ -59,7 +59,7 @@ char	*ft_itoa(int n)
 	int		k;
 	char	*str;
 
-	if (n == -2147483648)
+	if (n == INT_MIN)
 		return (ft_strdup("-2147483648"));
 	i = -1;
 	k = n;
@@ -67,13 +67,13 @@ char	*ft_itoa(int n)
 	str = malloc(sizeof(char) * (len_int(n) + 1));
 	if (!str)
 		return (0);
-	if ((int)n < 0 && k != -2147483648)
+	if ((int)n < 0 && k != INT_MIN)
 		n = -n;
-	while (j-- > 0 && k != -2147483648)
+	while (j-- > 0 && k != INT_MIN)
 		if (i++ <= len_int(k))
 			str[j] = ((n / ft_pow(10, i)) % 10) + '0';
 	str[len_int(k)] = '\0';
-	if (k < 0 && k != -2147483648)
+	if (k < 0 && k != INT_MIN)
 		str[0] = '-';
 	return (str);
 }

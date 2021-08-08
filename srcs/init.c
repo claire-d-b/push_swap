@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:45:47 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 11:50:37 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/05 16:51:26 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,8 @@ void	init_struct_count(t_count *count, int args_nb)
 	count->real_index_b = 0;
 }
 
-void	init_two_values(int *i, t_list **cmd)
+void	init_vars_ft_split(size_t *i, size_t *j)
 {
-	*i = 1;
-	*cmd = NULL;
-}
-
-void	free_string(char *str)
-{
-	free(str);
-	str = NULL;
+	*i = -1;
+	*j = 0;
 }

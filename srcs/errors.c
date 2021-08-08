@@ -6,25 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 05:20:35 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 12:14:38 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/08 07:49:41 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (!s || !fd)
-		return ;
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
-}
 
 int	is_not_numeric(char *str)
 {
@@ -34,10 +20,10 @@ int	is_not_numeric(char *str)
 	while (str[i])
 	{
 		if (!(ft_isdigit(str[i]) && !(str[i] == '-')))
-			return (1);
+			return (FALSE);
 		i++;
 	}
-	return (0);
+	return (TRUE);
 }
 
 int	check_doublons(char *str, char **args, int x)
@@ -48,13 +34,36 @@ int	check_doublons(char *str, char **args, int x)
 	while (args[i])
 	{
 		if (ft_strcmp(str, args[i]) == 0 && i != x)
-			return (1);
+			return (ERROR);
 		i++;
 	}
-	return (0);
+	return (TRUE);
 }
 
-int	handle_errors(int count, char **args)
+int	check_doublons_list(char *string, t_list *stack, int x)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = NULL;
+	go_to_first_el(&stack);
+	while (stack->next)
+	{
+		tmp = ft_itoa(*(int *)stack->value);
+		if (ft_strcmp(string, tmp) == 0 && i != x)
+		{
+			free_string(tmp);
+			return (ERROR);
+		}
+		free_string(tmp);
+		i++;
+		stack = stack->next;
+	}
+	return (TRUE);
+}
+
+int	handle_errors(char **args)
 {
 	int		i;
 	int		number;
@@ -63,8 +72,6 @@ int	handle_errors(int count, char **args)
 	i = 1;
 	string = NULL;
 	number = 0;
-	if (count < 2)
-		return (-1);
 	while (args[i])
 	{
 		number = ft_atoi(args[i]);
@@ -73,10 +80,37 @@ int	handle_errors(int count, char **args)
 		check_doublons(args[i], args, i))
 		{
 			free_string(string);
-			return (1);
+			return (ERROR);
 		}
 		free_string(string);
 		i++;
 	}
-	return (0);
+	return (TRUE);
+}
+
+int	list_doublons(t_list *stack)
+{
+	int		number;
+	char	*string;
+	int		i;
+
+	i = 0;
+	string = NULL;
+	number = 0;
+	go_to_first_el(&stack);
+	while (stack->next)
+	{
+		number = *(int *)stack->value;
+		string = ft_itoa(number);
+		if (check_doublons_list(string, stack, i))
+		{
+			ft_putstr_fd("Error\n", 2);
+			free_string(string);
+			return (ERROR);
+		}
+		free_string(string);
+		i++;
+		stack = stack->next;
+	}
+	return (TRUE);
 }

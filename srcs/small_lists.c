@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 12:37:54 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 11:51:05 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/08 07:36:05 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sort_three_numbers(t_list **stack_a, t_list **cmd)
 	go_to_last_el(stack_a);
 	tmp = *stack_a;
 	go_to_first_el(stack_a);
-	if (checker(*stack_a))
+	if (checker(*stack_a) == 0)
 		return ;
 	else if (*(int *)(*stack_a)->value > *(int *)(*stack_a)->next->value && \
 			(*(int *)(*stack_a)->value > *(int *)tmp->value))

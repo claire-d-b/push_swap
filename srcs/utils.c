@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:41:29 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 11:51:21 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/08 07:32:39 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] && ft_isdigit(str[i]))
 		res = res * 10 + (str[i++] - 48);
-	if (res == -2147483648)
+	if (res == INT_MIN)
 		return (res);
 	if (j < 0)
 		res = res * j;

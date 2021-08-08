@@ -6,12 +6,18 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:18:01 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/04 16:06:12 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/08 07:50:06 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
+# define TRUE 0
+# define FALSE 1
+# define ERROR -1
+# define INT_MIN -2147483648
+# define INT_MAX 2147483647
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -47,9 +53,11 @@ void	ft_rrr(t_list *stack_a, t_list *stack_b, t_list **cmd);
 /*
 ** errors
 */
-int		handle_errors(int count, char **args);
+int		handle_errors(char **args);
 int		is_not_numeric(char *str);
 void	ft_putstr_fd(char *s, int fd);
+int		check_doublons_list(char *string, t_list *stack, int x);
+int		list_doublons(t_list *stack);
 
 /*
 ** find_sort_style
@@ -59,13 +67,26 @@ void	set_if_high_or_low(int i, int *k, int *boolean, t_count *count);
 void	choose_value(t_list **stack_a, t_list *stack_b, t_count *count);
 
 /*
+** free
+*/
+void	free_string(char *str);
+void	free_tab(char **tab);
+void	free_stack(t_list *stack);
+void	free_stacks(t_list **cmd, t_list **stack_a, t_list **stack_b);
+
+/*
+** ft_split
+*/
+char	**ft_split(char const *s, char *charset);
+
+/*
 ** init
 */
 void	init_four_values(int *i, int *k, int *boolean, int *ct);
 int		init_stacks(t_list **stack_a, t_list **stack_b);
 void	init_struct_count(t_count *count, int args_nb);
 void	init_two_values(int *i, t_list **cmd);
-void	free_string(char *str);
+void	init_vars_ft_split(size_t *i, size_t *j);
 
 /*
 ** list
@@ -85,6 +106,14 @@ void	set_ct_limit(int *ct, t_list **stack_a, t_list *stack_b, \
 t_count *count);
 
 /*
+** mem
+*/
+void	*ft_memmove(void *dst, const void *src, size_t len);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_memdel(void *p, size_t size, size_t n);
+
+/*
 ** nb_utils
 */
 char	*ft_itoa(int n);
@@ -92,6 +121,7 @@ char	*ft_itoa(int n);
 /*
 ** print
 */
+void	ft_putstr_fd(char *s, int fd);
 void	print_commands(t_list **cmd);
 
 /*
@@ -101,6 +131,8 @@ int		checker(t_list *s_lst);
 void	push_swap(t_list **stack_a, t_list **stack_b, int nb, t_list **cmd);
 void	print_commands_free_stacks(t_list **cmd, t_list **stack_a, \
 t_list **stack_b);
+int		set_args(char **av, int **nb, t_list **stack_a, int ac);
+void	save_integer(int *nb, char *str, t_list **stack_a);
 
 /*
 ** push
@@ -152,7 +184,6 @@ void	sort(t_list **stack_a, t_list **stack_b, t_count *count, t_list **cmd);
 int		count_el(t_list *stack);
 void	go_to_first_el(t_list **stack);
 void	go_to_last_el(t_list **stack);
-void	free_stack(t_list *stack);
 
 /*
 ** swap
