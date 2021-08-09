@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+// #include "../includes/push_swap.h"
 
 int	count_el(t_list *stack)
 {

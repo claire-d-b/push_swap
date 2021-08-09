@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+// #include "../includes/push_swap.h"
 
 void	last_sort(t_list **stack_b, t_count *count, t_list **cmd)
 {

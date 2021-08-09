@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+// #include "../includes/push_swap.h"
 
 void	ft_ra(t_list *stack, t_list **cmd)
 {

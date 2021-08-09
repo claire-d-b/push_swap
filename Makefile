@@ -1,42 +1,79 @@
-SRCS =	./srcs/combine.c\
-	./srcs/errors.c\
-	./srcs/find_sort_style.c\
-	./srcs/free.c\
-	./srcs/ft_split.c\
-	./srcs/init.c\
-	./srcs/list.c\
-	./srcs/max_min.c\
-	./srcs/mem.c\
-	./srcs/nb_utils.c\
-	./srcs/print.c\
-	./srcs/push_swap.c\
-	./srcs/push.c\
-	./srcs/rotate.c\
-	./srcs/small_lists.c\
-	./srcs/sort_utils.c\
-	./srcs/sort.c\
-	./srcs/stack_utils.c\
-	./srcs/swap.c\
-	./srcs/utils.c\
+.SUFFIXES:
 
-RENAME		= mv a.out push_swap
-OBJ			= $(SRCS:.c=.o)
-NAME		= push_swap
-FS			= a.out.dSYM push_swap.dSYM 
+NAME	= push_swap
 CC			= clang
+HEADER		= -include includes/push_swap.h
+HEADER_FILE	= includes/push_swap.h
+CFLAGS		= -Wall -Wextra -Werror
+DFLAGS		= -MM
+CFLAGS_D	= -g3 -fsanitize=address
+# FS			= a.out.dSYM push_swap.dSYM 
+
+SRCS_PATH = srcs/
+INCLUDE_PATH	= includes/
+OBJ_PATH		=	obj/
+DEPS_PATH		=	deps/
+C_SUFFIX		= .c
+O_SUFFIX		= .o
+D_SUFFIX		= .d
+
+LIST =	combine \
+			errors \
+			find_sort_style \
+			free \
+			ft_split \
+			init \
+			list \
+			max_min \
+			mem \
+			nb_utils \
+			print \
+			push_swap \
+			push \
+			rotate \
+			small_lists \
+			sort_utils \
+			sort \
+			stack_utils \
+			swap \
+			utils \
+
+LIST_C 	= $(addsuffix $(C_SUFFIX), $(LIST))
+LIST_O 	= $(addsuffix $(O_SUFFIX), $(LIST))
+LIST_D 	= $(addsuffix $(D_SUFFIX), $(LIST))
+
+SRCS	= $(addprefix $(SRCS_PATH), $(LIST_C))
+
+OBJS	=	$(addprefix $(OBJ_PATH), $(LIST_O))
+
+DEPS	=	$(addprefix $(DEPS_PATH), $(LIST_D))
+
 RM			= rm -f
 RM_DIR		= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
-$(NAME):		$(OBJ)
-#add CFLAGS
-				@$(CC) $(CFLAGS) $(SRCS)
-				@$(RENAME)
+
+$(OBJ_PATH)%.o:		$(SRCS_PATH)%.c $(HEADER_FILE)
+			@mkdir -p obj/
+			$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+
+$(DEPS_PATH)%.d:	$(SRCS_PATH)%.c
+			@mkdir -p deps/
+			$(CC) $(CFLAGS) $(HEADER) -o $@ $(DFLAGS) $<
+
 all:			$(NAME)
-clean:
-				@$(RM) $(OBJ)
+
+$(NAME):		$(OBJS) $(DEPS)
+				$(CC) $(OBJS) -o $@
+
+clean:			
+				$(RM_DIR) $(OBJ_PATH) $(DEPS_PATH)
+
 fclean:			clean
-				@$(RM) $(NAME)
-				@$(RM_DIR) $(FS)
-re:				fclean all	
+				$(RM) $(NAME)
+
+re:				fclean all
+
+debug:			$(OBJS)
+				$(CC) $(CFLAGS) $(CFLAGS_D) $(SRCS) -o $(NAME)
+
 .PHONY:			all clean fclean re
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+// #include "../includes/push_swap.h"
 
 int	find_index(int value, t_list *stack)
 {

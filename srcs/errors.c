@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+// #include "../includes/push_swap.h"
 
 int	is_not_numeric(char *str)
 {
 	int	i;
 
 	i = 0;
+	if (str[i] == '-')
+		i++;
 	while (str[i])
 	{
-		if (!(ft_isdigit(str[i]) && !(str[i] == '-')))
+		if (!ft_isdigit(str[i]))
 			return (FALSE);
 		i++;
 	}

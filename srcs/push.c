@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+// #include "../includes/push_swap.h"
 
 void	ft_pb(t_list **stack_a, t_list **stack_b, t_list **cmd)
 {
