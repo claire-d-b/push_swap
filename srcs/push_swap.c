@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/08 07:47:53 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/09 19:02:08 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../includes/push_swap.h"
+// #include "push_swap.h"
 
 int	checker(t_list *s_lst)
 {
@@ -49,7 +49,7 @@ void	save_integer(int *nb, char *str, t_list **stack_a)
 	ft_lst_addback(stack_a, ft_lstnew(nb));
 }
 
-int	set_args(char **av, int **nb, t_list **stack_a, int ac)
+int	set_args(char **av, int **nb, t_list **stack_a)
 {
 	int		i;
 	int		j;
@@ -63,10 +63,9 @@ int	set_args(char **av, int **nb, t_list **stack_a, int ac)
 		split = ft_split(av[i], " \t\n\r\v\f");
 		while (split[++j])
 		{
-			if (ac < 2 || handle_errors(split) == ERROR)
+			if (handle_errors(split) == ERROR)
 			{
-				if (!(ac < 2))
-					ft_putstr_fd("Error\n", 2);
+				ft_putstr_fd("Error\n", 2);
 				free_tab(split);
 				return (1);
 			}
@@ -88,7 +87,7 @@ int	main(int ac, char **av)
 	nb = NULL;
 	cmd = NULL;
 	init_stacks(&stack_a, &stack_b);
-	if (set_args(av, &nb, &stack_a, ac) || list_doublons(stack_a))
+	if (ac < 2 || set_args(av, &nb, &stack_a) || list_doublons(stack_a))
 	{
 		free_stack(stack_a);
 		return (0);

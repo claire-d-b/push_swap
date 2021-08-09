@@ -1,18 +1,18 @@
 .SUFFIXES:
 
 NAME	= push_swap
+
 CC			= clang
 HEADER		= -include includes/push_swap.h
 HEADER_FILE	= includes/push_swap.h
 CFLAGS		= -Wall -Wextra -Werror
 DFLAGS		= -MM
-CFLAGS_D	= -g3 -fsanitize=address
-# FS			= a.out.dSYM push_swap.dSYM 
 
 SRCS_PATH = srcs/
 INCLUDE_PATH	= includes/
 OBJ_PATH		=	obj/
 DEPS_PATH		=	deps/
+
 C_SUFFIX		= .c
 O_SUFFIX		= .o
 D_SUFFIX		= .d
@@ -71,9 +71,6 @@ fclean:			clean
 				$(RM) $(NAME)
 
 re:				fclean all
-
-debug:			$(OBJS)
-				$(CC) $(CFLAGS) $(CFLAGS_D) $(SRCS) -o $(NAME)
 
 .PHONY:			all clean fclean re
 

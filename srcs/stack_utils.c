@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:46:30 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/05 16:58:26 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/09 19:21:20 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../includes/push_swap.h"
+// #include "/includes/push_swap.h"
 
 int	count_el(t_list *stack)
 {
@@ -23,6 +23,7 @@ int	count_el(t_list *stack)
 		stack = stack->next;
 		i++;
 	}
+	go_to_first_el(&stack);
 	return (i + 1);
 }
 

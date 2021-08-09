@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:18:01 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/08 07:50:06 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/09 19:34:48 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char	*ft_itoa(int n);
 */
 void	ft_putstr_fd(char *s, int fd);
 void	print_commands(t_list **cmd);
+int		errors(char *string, int boolean);
 
 /*
 ** push_swap
@@ -131,7 +132,7 @@ int		checker(t_list *s_lst);
 void	push_swap(t_list **stack_a, t_list **stack_b, int nb, t_list **cmd);
 void	print_commands_free_stacks(t_list **cmd, t_list **stack_a, \
 t_list **stack_b);
-int		set_args(char **av, int **nb, t_list **stack_a, int ac);
+int		set_args(char **av, int **nb, t_list **stack_a);
 void	save_integer(int *nb, char *str, t_list **stack_a);
 
 /*

@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 05:20:35 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/08 07:49:41 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/09 19:29:43 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../includes/push_swap.h"
+// #include "push_swap.h"
 
 int	is_not_numeric(char *str)
 {
@@ -19,6 +19,8 @@ int	is_not_numeric(char *str)
 	i = 0;
 	if (str[i] == '-')
 		i++;
+	if (str[i] == '\0')
+		return (FALSE);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -54,14 +56,15 @@ int	check_doublons_list(char *string, t_list *stack, int x)
 	{
 		tmp = ft_itoa(*(int *)stack->value);
 		if (ft_strcmp(string, tmp) == 0 && i != x)
-		{
-			free_string(tmp);
-			return (ERROR);
-		}
+			return (errors(tmp, 0));
 		free_string(tmp);
 		i++;
 		stack = stack->next;
 	}
+	tmp = ft_itoa(*(int *)stack->value);
+	if (ft_strcmp(string, tmp) == 0 && i != x)
+		return (errors(tmp, 0));
+	free_string(tmp);
 	return (TRUE);
 }
 
@@ -71,7 +74,7 @@ int	handle_errors(char **args)
 	int		number;
 	char	*string;
 
-	i = 1;
+	i = 0;
 	string = NULL;
 	number = 0;
 	while (args[i])
@@ -105,14 +108,15 @@ int	list_doublons(t_list *stack)
 		number = *(int *)stack->value;
 		string = ft_itoa(number);
 		if (check_doublons_list(string, stack, i))
-		{
-			ft_putstr_fd("Error\n", 2);
-			free_string(string);
-			return (ERROR);
-		}
+			return (errors(string, 1));
 		free_string(string);
 		i++;
 		stack = stack->next;
 	}
+	number = *(int *)stack->value;
+	string = ft_itoa(number);
+	if (check_doublons_list(string, stack, i))
+		return (errors(string, 1));
+	free_string(string);
 	return (TRUE);
 }

@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 12:37:54 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/08 07:36:05 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/09 18:59:47 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../includes/push_swap.h"
+// #include "push_swap.h"
 
 void	sort_three_numbers(t_list **stack_a, t_list **cmd)
 {
@@ -58,6 +58,7 @@ void	place_smallest_nbs(int *idx, int count, t_list **stack_a, t_list **cmd)
 
 void	swap_list_two_el(t_list **stack_a, t_list **cmd)
 {
+	go_to_first_el(stack_a);
 	if (*(int *)(*stack_a)->value > *(int *)(*stack_a)->next->value)
 	{
 		ft_sa(*stack_a);

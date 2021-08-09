@@ -6,11 +6,19 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:44:38 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/08 07:49:56 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/09 19:35:35 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../includes/push_swap.h"
+// #include "push_swap.h"
+
+int	errors(char *string, int boolean)
+{
+	if (boolean)
+		ft_putstr_fd("Error\n", 2);
+	free_string(string);
+	return (ERROR);
+}
 
 void	ft_putstr_fd(char *s, int fd)
 {
