@@ -17,7 +17,7 @@ C_SUFFIX		= .c
 O_SUFFIX		= .o
 D_SUFFIX		= .d
 
-LIST =	combine \
+LIST =		combine \
 			errors \
 			find_sort_style \
 			free \
@@ -38,15 +38,13 @@ LIST =	combine \
 			swap \
 			utils \
 
-LIST_C 	= $(addsuffix $(C_SUFFIX), $(LIST))
-LIST_O 	= $(addsuffix $(O_SUFFIX), $(LIST))
-LIST_D 	= $(addsuffix $(D_SUFFIX), $(LIST))
+LIST_C 		=	$(addsuffix $(C_SUFFIX), $(LIST))
+LIST_O 		=	$(addsuffix $(O_SUFFIX), $(LIST))
+LIST_D 		=	$(addsuffix $(D_SUFFIX), $(LIST))
 
-SRCS	= $(addprefix $(SRCS_PATH), $(LIST_C))
-
-OBJS	=	$(addprefix $(OBJ_PATH), $(LIST_O))
-
-DEPS	=	$(addprefix $(DEPS_PATH), $(LIST_D))
+SRCS		=	$(addprefix $(SRCS_PATH), $(LIST_C))
+OBJS		=	$(addprefix $(OBJ_PATH), $(LIST_O))
+DEPS		=	$(addprefix $(DEPS_PATH), $(LIST_D))
 
 RM			= rm -f
 RM_DIR		= rm -rf
