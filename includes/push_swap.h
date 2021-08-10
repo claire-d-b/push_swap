@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:18:01 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/10 10:56:51 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 11:33:06 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_rrr(t_list *stack_a, t_list *stack_b, t_list **cmd);
 ** errors
 */
 int		handle_errors(char **args);
-int		is_not_numeric(char *str);
+int		is_numeric(char *str);
 void	ft_putstr_fd(char *s, int fd);
 int		check_doublons_list(char *string, t_list *stack, int x);
 int		list_doublons(t_list *stack);

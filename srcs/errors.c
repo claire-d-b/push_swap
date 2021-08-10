@@ -6,11 +6,11 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 05:20:35 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/10 10:51:14 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 11:48:28 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	is_not_numeric(char *str)
+int	is_numeric(char *str)
 {
 	int	i;
 
@@ -79,12 +79,9 @@ int	handle_errors(char **args)
 	{
 		number = ft_atoi(args[i]);
 		string = ft_itoa(number);
-		if (ft_strcmp(string, args[i]) || is_not_numeric(args[i]) || \
+		if (ft_strcmp(string, args[i]) || is_numeric(args[i]) || \
 		check_doublons(args[i], args, i))
-		{
-			free_string(string);
-			return (ERROR);
-		}
+			return (errors(string, 1));
 		free_string(string);
 		i++;
 	}

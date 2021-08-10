@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:20:07 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/10 10:52:41 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 11:46:24 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,21 @@ int	set_args(char **av, int **nb, t_list **stack_a)
 	while (av[++i])
 	{
 		split = ft_split(av[i], " \t\n\r\v\f");
-		while (split[++j])
+		while (split[++j] || (!(split[0]) && j == 0))
 		{
-			if (handle_errors(split) == ERROR)
+			if (!(split[0]) || (split[0] && handle_errors(split) == ERROR))
 			{
-				ft_putstr_fd("Error\n", 2);
+				if (!(split[0]))
+					ft_putstr_fd("Error\n", 2);
 				free_tab(split);
-				return (1);
+				return (FALSE);
 			}
 			save_integer(*nb, split[j], stack_a);
 		}
 		free_tab(split);
 		j = -1;
 	}
-	return (0);
+	return (TRUE);
 }
 
 int	main(int ac, char **av)
@@ -85,14 +86,15 @@ int	main(int ac, char **av)
 	nb = NULL;
 	cmd = NULL;
 	init_stacks(&stack_a, &stack_b);
-	if (ac < 2 || set_args(av, &nb, &stack_a) || list_doublons(stack_a))
+	if (ac < 2 || set_args(av, &nb, &stack_a) || (stack_a && \
+	list_doublons(stack_a)))
 	{
 		free_stack(stack_a);
 		return (0);
 	}
-	if (ac <= 6 && checker(stack_a))
+	if (ac <= 6 && stack_a && checker(stack_a))
 		up_to_five_numbers(&stack_a, &stack_b, &cmd, count_el(stack_a));
-	else if (checker(stack_a))
+	else if (stack_a && checker(stack_a))
 		push_swap(&stack_a, &stack_b, count_el(stack_a), &cmd);
 	go_to_first_el(&cmd);
 	print_commands(&cmd);
