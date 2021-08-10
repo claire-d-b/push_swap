@@ -38,7 +38,7 @@ LIST_O 		=	$(addsuffix $(O_SUFFIX), $(LIST))
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(LIST_C))
 OBJS		=	$(addprefix $(OBJ_PATH), $(LIST_O))
-DEPS		=	$(LIST_O:.o=.d)
+DEPS		=	$(OBJS:.o=.d)
 
 RM			= rm -f
 RM_DIR		= rm -rf
@@ -50,7 +50,7 @@ $(OBJ_PATH)%.o:		$(SRCS_PATH)%.c
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				$(CC) $(OBJS) -o $@
+				$(CC) $(CFLAGS) $(OBJS) -o $@
 
 clean:			
 				$(RM_DIR) $(OBJ_PATH)
