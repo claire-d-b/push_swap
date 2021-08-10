@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
 void	last_sort(t_list **stack_b, t_count *count, t_list **cmd)
 {
 	go_to_first_el(stack_b);

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
 void	init_four_values(int *i, int *k, int *boolean, int *ct)
 {
 	*i = 0;

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
 void	high_limit(t_list **stack_a, t_list **stack_b, t_count *count, \
 t_list **cmd)
 {

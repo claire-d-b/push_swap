@@ -3,9 +3,7 @@
 NAME	= push_swap
 
 CC			= clang
-HEADER		= -include includes/push_swap.h
-HEADER_FILE	= includes/push_swap.h
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -MMD -I includes/
 
 SRCS_PATH = srcs/
 INCLUDE_PATH	= includes/
@@ -40,13 +38,14 @@ LIST_O 		=	$(addsuffix $(O_SUFFIX), $(LIST))
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(LIST_C))
 OBJS		=	$(addprefix $(OBJ_PATH), $(LIST_O))
+DEPS		=	$(LIST_O:.o=.d)
 
 RM			= rm -f
 RM_DIR		= rm -rf
 
-$(OBJ_PATH)%.o:		$(SRCS_PATH)%.c $(HEADER_FILE)
+$(OBJ_PATH)%.o:		$(SRCS_PATH)%.c
 			@mkdir -p obj/
-			$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+			$(CC) $(CFLAGS) -c $< -o $@
 
 all:			$(NAME)
 
@@ -63,5 +62,4 @@ re:				fclean all
 
 .PHONY:			all clean fclean re
 
--include $(DEPS)
-
+-include		$(DEPS)
