@@ -6,7 +6,7 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 12:37:54 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/10 10:52:57 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:55:05 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	up_to_five_numbers(t_list **stack_a, t_list **stack_b, t_list **cmd, \
 		while (j > 3)
 		{
 			idx = index_max_el(stack_a, find_min(*stack_a));
-			place_smallest_nbs(&idx, count, stack_a, cmd);
+			place_smallest_nbs(&idx, j, stack_a, cmd);
 			ft_pb(stack_a, stack_b, cmd);
 			j--;
 		}
