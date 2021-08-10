@@ -6,11 +6,9 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:50:32 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/09 18:27:08 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 10:53:00 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #include "push_swap.h"
 
 void	high_limit(t_list **stack_a, t_list **stack_b, t_count *count, \
 t_list **cmd)

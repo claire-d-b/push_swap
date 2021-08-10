@@ -6,11 +6,9 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 12:37:54 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/09 18:59:47 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 10:52:57 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #include "push_swap.h"
 
 void	sort_three_numbers(t_list **stack_a, t_list **cmd)
 {

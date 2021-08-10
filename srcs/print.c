@@ -6,11 +6,9 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 11:44:38 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/09 19:35:35 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 10:52:34 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #include "push_swap.h"
 
 int	errors(char *string, int boolean)
 {

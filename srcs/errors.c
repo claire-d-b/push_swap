@@ -6,11 +6,9 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 05:20:35 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/09 19:29:43 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 10:51:14 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #include "push_swap.h"
 
 int	is_not_numeric(char *str)
 {

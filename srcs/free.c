@@ -6,11 +6,9 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:38:59 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/10 08:21:00 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 10:51:25 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #include "push_swap.h"
 
 void	free_stack(t_list *stack)
 {

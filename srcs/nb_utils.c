@@ -6,11 +6,9 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 15:01:04 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/09 18:27:08 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 10:52:27 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #include "push_swap.h"
 
 static int	len_int(int n)
 {

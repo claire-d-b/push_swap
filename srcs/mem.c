@@ -6,11 +6,9 @@
 /*   By: clde-ber <clde-ber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:57:56 by clde-ber          #+#    #+#             */
-/*   Updated: 2021/08/09 18:27:08 by clde-ber         ###   ########.fr       */
+/*   Updated: 2021/08/10 10:52:30 by clde-ber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #include "push_swap.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
